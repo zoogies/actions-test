@@ -1,0 +1,6 @@
+name: check folder 2
+
+on:
+  push:
+    paths:
+      - folder2/**
