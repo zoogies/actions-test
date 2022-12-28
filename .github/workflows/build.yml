@@ -32,19 +32,18 @@ jobs:
     # this will be used to allow preloading of signins and other operations so they can be reused if both contain changes
     - name: preload
       if: steps.filter.outputs.backend == 'true' || steps.filter.outputs.frontend == 'true'
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Set up QEMU
+        - uses: docker/setup-qemu-action@v1
+        # Set up Docker Buildx
+        - id: buildx
+          uses: docker/setup-buildx-action@v1
+        # Log in to the Container registry
+        - uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+          with:
+            registry: ${{ env.REGISTRY }}
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
 
     # run only if 'backend' files were changed
     - name: backend build
