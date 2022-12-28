@@ -33,6 +33,8 @@ jobs:
     - name: preload
       if: steps.filter.outputs.backend == 'true' || steps.filter.outputs.frontend == 'true'
       run: |
+        # checkout again maybe
+        - uses: actions/checkout@v3
         # Set up QEMU
         - uses: docker/setup-qemu-action@v1
         # Set up Docker Buildx
